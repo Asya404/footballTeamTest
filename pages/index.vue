@@ -45,17 +45,17 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+h1 {
+  margin-bottom: 1rem;
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+
 .addUser {
   max-width: 800px;
   margin: 0 auto;
   margin-top: 5rem;
   padding: 0 1rem;
-}
-
-.addUser h1 {
-  margin-bottom: 1rem;
-  font-weight: 400;
-  font-size: 1.5rem;
 }
 
 .addUser__form {
@@ -116,12 +116,12 @@ body {
 }
 
 @media (min-width: 768px) {
-  .addUser {
-    padding: initial;
+  h1 {
+    font-size: 1.9rem;
   }
 
-  .addUser h1 {
-    font-size: 1.9rem;
+  .addUser {
+    padding: initial;
   }
 
   .addUser__form {
