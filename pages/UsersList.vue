@@ -4,7 +4,7 @@
     <ul class="usersList__list">
       <header class="usersList__header">
         <div class="usersList__search">
-          <input type="text" placeholder="Search for users..." class="usersList__input" />
+          <input type="text" placeholder="Search for users..." class="usersList__input" v-model="searchInput" />
           <span>🔍</span>
         </div>
         <button class="usersList__button">+ Add User</button>
@@ -31,8 +31,6 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-
 const users = await $fetch("https://reqres.in/api/users");
 const currentPage = ref(1);
 const usersPerPage = 3;
@@ -41,12 +39,21 @@ const totalPages = computed(() => Math.ceil(users.data.length / usersPerPage));
 
 const paginatedUsers = computed(() => {
   const start = (currentPage.value - 1) * usersPerPage;
-  return users.data.slice(start, start + usersPerPage);
+  return filteredUsers.value.slice(start, start + usersPerPage);
 });
 
 const changePage = (page) => {
   if (page > 0 && page <= totalPages.value) currentPage.value = page;
 };
+
+const searchInput = ref("");
+
+const filteredUsers = computed(() => {
+  return users.data.filter((user) => {
+    const fullName = `${user.first_name} ${user.last_name}`.toLowerCase();
+    return fullName.includes(searchInput.value.toLowerCase());
+  });
+});
 </script>
 
 <style scoped>
@@ -83,6 +90,13 @@ const changePage = (page) => {
   border: none;
   border-radius: 3px;
   width: 100%;
+  transition: all 0.3s ease;
+}
+
+.usersList__input:focus {
+  outline: none;
+  border-color: #b4b4b4;
+  box-shadow: 0 0 5px rgba(150, 150, 150, 0.5);
 }
 
 .usersList__search span {
