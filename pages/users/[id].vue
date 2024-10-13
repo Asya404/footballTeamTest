@@ -16,16 +16,38 @@
         <input type="text" v-model="avatarUrl" id="avatarUrl" required />
       </div>
       <div class="editUser__button">
-        <button type="button">Save Changes</button>
+        <button type="button" @click="handleSubmit">Save Changes</button>
       </div>
     </form>
   </div>
 </template>
 
 <script setup>
-const firstName = ref("John");
-const lastName = ref("Doe");
-const avatarUrl = ref("https://via.placeholder.com/150");
+const route = useRoute();
+const router = useRouter();
+const userId = route.params.id;
+console.log("User ID:", userId);
+const userData = await $fetch(`https://reqres.in/api/users/${userId}`);
+
+const firstName = ref(userData.data.first_name);
+const lastName = ref(userData.data.last_name);
+const avatarUrl = ref(userData.data.avatar);
+
+const handleSubmit = async () => {
+  try {
+    await $fetch(`https://reqres.in/api/users/${userId}`, {
+      method: "PUT",
+      body: {
+        first_name: firstName.value,
+        last_name: lastName.value,
+        avatar: avatarUrl.value,
+      },
+    });
+    await router.push("/users");
+  } catch (error) {
+    console.error("Error updating user:", error);
+  }
+};
 </script>
 
 <style scoped>
