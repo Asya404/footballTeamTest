@@ -20,16 +20,27 @@
 </template>
 
 <script setup>
+import { useUserStore, addUser } from "@/store/store";
+const store = useUserStore();
+const router = useRouter();
+
 const firstName = ref("");
 const lastName = ref("");
 const avatarUrl = ref("");
 
 const handleSubmit = () => {
-  console.log("User added:", {
-    firstName: firstName.value,
-    lastName: lastName.value,
-    avatarUrl: avatarUrl.value,
-  });
+  const newUser = {
+    first_name: firstName.value,
+    last_name: lastName.value,
+    avatar: avatarUrl.value,
+    id: Date.now(),
+  };
+  addUser(store, newUser);
+  firstName.value = "";
+  lastName.value = "";
+  avatarUrl.value = "";
+
+  router.push("/users");
 };
 </script>
 
