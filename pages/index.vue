@@ -41,7 +41,7 @@ onMounted(async () => {
 });
 
 const currentPage = ref(1);
-const usersPerPage = 3;
+const usersPerPage = 4;
 const searchInput = ref("");
 
 const filteredUsers = computed(() => {
@@ -121,7 +121,7 @@ h1 {
 .usersList__search {
   position: relative;
   width: 100%;
-  max-width: 300px;
+  max-width: 200px;
 }
 
 .usersList__input {
@@ -158,7 +158,7 @@ h1 {
 .usersList__titles,
 .usersList__list li {
   display: grid;
-  grid-template-columns: 80px 1fr 100px;
+  grid-template-columns: 80px 1fr 50px;
   align-items: center;
   padding: 0.5rem 0;
 }
@@ -216,5 +216,16 @@ h1 {
 .pagination button:disabled {
   background: #f5f5f5;
   cursor: not-allowed;
+}
+
+@media (min-width: 480px) {
+  .usersList__search {
+    max-width: 300px;
+  }
+
+  .usersList__titles,
+  .usersList__list li {
+    grid-template-columns: 80px 1fr 100px;
+  }
 }
 </style>
