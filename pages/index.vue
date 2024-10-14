@@ -9,7 +9,7 @@
         </div>
         <button class="usersList__button" @click="addUser">+ Add Intern</button>
       </header>
-      <div class="usersList__titles">
+      <div class="usersList__titles" v-if="filteredUsers.length > 0">
         <div>Avatar</div>
         <div>Full Name</div>
         <div>Action</div>
@@ -17,8 +17,9 @@
       <li v-for="user in paginatedUsers" :key="user.id">
         <img class="usersList__avatar" :src="user.avatar" :alt="user.first_name" />
         <div class="usersList__name">{{ `${user.first_name} ${user.last_name}` }}</div>
-        <div class="usersList__action" @click="editUser(user.id)">Edit/Delete</div>
+        <div class="usersList__action" @click="editUser(user.id)">✎ 🗑</div>
       </li>
+      <p v-if="filteredUsers.length === 0">No interns found.</p>
     </ul>
     <div class="pagination">
       <button @click="changePage(currentPage - 1)" :disabled="currentPage === 1">«</button>
@@ -50,7 +51,7 @@ const filteredUsers = computed(() => {
   });
 });
 
-const totalPages = computed(() => Math.ceil(store.users.length / usersPerPage));
+const totalPages = computed(() => Math.ceil(filteredUsers.value.length / usersPerPage));
 
 const paginatedUsers = computed(() => {
   const start = (currentPage.value - 1) * usersPerPage;
