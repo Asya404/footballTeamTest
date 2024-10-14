@@ -18,3 +18,11 @@ export const fetchUsers = async (store) => {
 export const addUser = (store, user) => {
   store.users.push(user);
 };
+
+export const updateUser = (store, userId, updatedUser) => {
+  const index = store.users.findIndex((user) => user.id === userId);
+  console.log(userId);
+  if (index !== -1) {
+    store.users[index] = { ...store.users[index], ...updatedUser };
+  }
+};

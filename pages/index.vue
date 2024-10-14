@@ -17,7 +17,7 @@
       <li v-for="user in paginatedUsers" :key="user.id">
         <img class="usersList__avatar" :src="user.avatar" :alt="user.first_name" />
         <div class="usersList__name">{{ `${user.first_name} ${user.last_name}` }}</div>
-        <div class="usersList__action">Edit/Delete</div>
+        <div class="usersList__action" @click="editUser(user.id)">Edit/Delete</div>
       </li>
     </ul>
     <div class="pagination">
@@ -63,6 +63,10 @@ const changePage = (page) => {
 
 const addUser = () => {
   router.push("/users/new");
+};
+
+const editUser = (id) => {
+  router.push(`/users/${id}`);
 };
 </script>
 
@@ -172,6 +176,10 @@ h1 {
 
 .usersList__list li:nth-child(odd) {
   background: #f5f5f5;
+}
+
+.usersList__action {
+  cursor: pointer;
 }
 
 .pagination {

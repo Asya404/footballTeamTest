@@ -23,30 +23,38 @@
 </template>
 
 <script setup>
+import { useUserStore, updateUser } from "@/store/store";
 const route = useRoute();
 const router = useRouter();
-const userId = route.params.id;
-console.log("User ID:", userId);
-const userData = await $fetch(`https://reqres.in/api/users/${userId}`);
+const userId = Number(route.params.id);
+const store = useUserStore();
 
-const firstName = ref(userData.data.first_name);
-const lastName = ref(userData.data.last_name);
-const avatarUrl = ref(userData.data.avatar);
+const firstName = ref("");
+const lastName = ref("");
+const avatarUrl = ref("");
 
-const handleSubmit = async () => {
-  try {
-    await $fetch(`https://reqres.in/api/users/${userId}`, {
-      method: "PUT",
-      body: {
-        first_name: firstName.value,
-        last_name: lastName.value,
-        avatar: avatarUrl.value,
-      },
-    });
-    await router.push("/users");
-  } catch (error) {
-    console.error("Error updating user:", error);
+onMounted(() => {
+  const user = store.users.find((user) => user.id == userId);
+
+  if (user) {
+    firstName.value = user.first_name;
+    lastName.value = user.last_name;
+    avatarUrl.value = user.avatar;
   }
+});
+
+const handleSubmit = () => {
+  const updatedUser = {
+    id: userId,
+    first_name: firstName.value,
+    last_name: lastName.value,
+    avatar: avatarUrl.value,
+  };
+
+  console.log("Updated User:", updatedUser);
+
+  updateUser(store, userId, updatedUser);
+  router.push("/");
 };
 </script>
 

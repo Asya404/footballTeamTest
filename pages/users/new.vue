@@ -38,10 +38,6 @@ const handleSubmit = async () => {
 
   addUser(store, newUser);
 
-  firstName.value = "";
-  lastName.value = "";
-  avatarUrl.value = "";
-
   await router.push("/");
 };
 </script>
