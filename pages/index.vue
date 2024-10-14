@@ -174,6 +174,7 @@ h1 {
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
+  margin-left: 0.5rem;
 }
 
 .usersList__list li:nth-child(odd) {
