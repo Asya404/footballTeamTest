@@ -32,11 +32,12 @@
 </template>
 
 <script setup>
-import { useUserStore, fetchUsers } from "@/store/store";
+import { useUserStore, fetchUsers, loadUsers } from "@/store/store";
 const store = useUserStore();
 const router = useRouter();
 
 onMounted(async () => {
+  loadUsers(store);
   await fetchUsers(store);
 });
 
