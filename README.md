@@ -1,75 +1,57 @@
-# Nuxt 3 Minimal Starter
+# Internship Management Application
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Description
 
-## Setup
+This project is an internship management application created as part of a recruitment task. The application allows users to:
 
-Make sure to install the dependencies:
+- Add a new intern by filling out a form with their first name, last name, and avatar URL.
+- View a paginated list of all interns, complete with their photos.
+- Edit the details of existing interns or delete them from the list.
+
+## Tech Stack
+
+- Vue 3
+- Nuxt 3
+- Pinia for state management
+
+## Getting Started
+
+### Prerequisites
+
+Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/Asya404/footballTeamTest.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd footballTeamTest
+   ```
+
+3. Install the dependencies:
+
+   ```bash
+   npm install
+   ```
+
+### Running the Application
+
+To start the development server, run:
 
 ```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+### Deployment
 
-Build the application for production:
+The application is deployed on Netlify. You can view it here https://footballteam-nk.netlify.app/
 
-```bash
-# npm
-npm run build
+### API Documentation
 
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+The application utilizes the following API for user data: Reqres API Documentation (https://reqres.in/)
