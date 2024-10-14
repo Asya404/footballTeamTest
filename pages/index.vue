@@ -1,15 +1,15 @@
 <template>
   <div class="usersList">
-    <h1>Users List</h1>
+    <h1>Interns List</h1>
     <ul class="usersList__list">
       <header class="usersList__header">
         <div class="usersList__search">
-          <input type="text" placeholder="Search for users..." class="usersList__input" v-model="searchInput" />
+          <input type="text" placeholder="Search for interns..." class="usersList__input" v-model="searchInput" />
           <span>🔍</span>
         </div>
-        <button class="usersList__button" @click="addUser">+ Add User</button>
+        <button class="usersList__button" @click="addUser">+ Add Intern</button>
       </header>
-      <div class="usersList__titles">
+      <div class="usersList__titles" v-if="filteredUsers.length > 0">
         <div>Avatar</div>
         <div>Full Name</div>
         <div>Action</div>
@@ -17,8 +17,9 @@
       <li v-for="user in paginatedUsers" :key="user.id">
         <img class="usersList__avatar" :src="user.avatar" :alt="user.first_name" />
         <div class="usersList__name">{{ `${user.first_name} ${user.last_name}` }}</div>
-        <div class="usersList__action" @click="editUser(user.id)">Edit/Delete</div>
+        <div class="usersList__action" @click="editUser(user.id)">✎ 🗑</div>
       </li>
+      <p v-if="filteredUsers.length === 0">No interns found.</p>
     </ul>
     <div class="pagination">
       <button @click="changePage(currentPage - 1)" :disabled="currentPage === 1">«</button>
@@ -31,16 +32,17 @@
 </template>
 
 <script setup>
-import { useUserStore, fetchUsers } from "@/store/store";
+import { useUserStore, fetchUsers, loadUsers } from "@/store/store";
 const store = useUserStore();
 const router = useRouter();
 
 onMounted(async () => {
+  loadUsers(store);
   await fetchUsers(store);
 });
 
 const currentPage = ref(1);
-const usersPerPage = 3;
+const usersPerPage = 4;
 const searchInput = ref("");
 
 const filteredUsers = computed(() => {
@@ -50,7 +52,7 @@ const filteredUsers = computed(() => {
   });
 });
 
-const totalPages = computed(() => Math.ceil(store.users.length / usersPerPage));
+const totalPages = computed(() => Math.ceil(filteredUsers.value.length / usersPerPage));
 
 const paginatedUsers = computed(() => {
   const start = (currentPage.value - 1) * usersPerPage;
@@ -120,7 +122,7 @@ h1 {
 .usersList__search {
   position: relative;
   width: 100%;
-  max-width: 300px;
+  max-width: 200px;
 }
 
 .usersList__input {
@@ -157,7 +159,7 @@ h1 {
 .usersList__titles,
 .usersList__list li {
   display: grid;
-  grid-template-columns: 80px 1fr 100px;
+  grid-template-columns: 80px 1fr 50px;
   align-items: center;
   padding: 0.5rem 0;
 }
@@ -180,6 +182,12 @@ h1 {
 
 .usersList__action {
   cursor: pointer;
+  color: #919191;
+  transition: all 0.3s ease;
+}
+
+.usersList__action:hover {
+  color: #569067;
 }
 
 .pagination {
@@ -209,5 +217,16 @@ h1 {
 .pagination button:disabled {
   background: #f5f5f5;
   cursor: not-allowed;
+}
+
+@media (min-width: 480px) {
+  .usersList__search {
+    max-width: 300px;
+  }
+
+  .usersList__titles,
+  .usersList__list li {
+    grid-template-columns: 80px 1fr 100px;
+  }
 }
 </style>

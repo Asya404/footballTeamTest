@@ -1,20 +1,25 @@
 <template>
   <div class="addUser">
-    <h1>Add user</h1>
+    <h1>Add Intern</h1>
     <form class="addUser__form" @submit.prevent="handleSubmit">
       <div class="addUser__field">
         <label for="firstName">First Name</label>
-        <input type="text" v-model="firstName" id="firstName" required />
+        <input type="text" v-model="firstName" id="firstName" :class="{ error: !firstName && formSubmitted }" />
+        <span v-if="!firstName && formSubmitted" class="error-message">First Name is required</span>
       </div>
       <div class="addUser__field">
         <label for="lastName">Last Name</label>
-        <input type="text" v-model="lastName" id="lastName" required />
+        <input type="text" v-model="lastName" id="lastName" :class="{ error: !lastName && formSubmitted }" />
+        <span v-if="!lastName && formSubmitted" class="error-message">Last Name is required</span>
       </div>
       <div class="addUser__field">
         <label for="avatarUrl">Avatar URL</label>
-        <input type="text" v-model="avatarUrl" id="avatarUrl" required />
+        <input type="text" v-model="avatarUrl" id="avatarUrl" :class="{ error: !avatarUrl && formSubmitted }" />
+        <span v-if="!avatarUrl && formSubmitted" class="error-message">Avatar URL is required</span>
       </div>
-      <div class="addUser__button"><button type="submit">Update Details</button></div>
+      <div class="addUser__button">
+        <button type="submit">Add Intern</button>
+      </div>
     </form>
   </div>
 </template>
@@ -27,8 +32,15 @@ const router = useRouter();
 const firstName = ref("");
 const lastName = ref("");
 const avatarUrl = ref("");
+const formSubmitted = ref(false);
 
 const handleSubmit = async () => {
+  formSubmitted.value = true;
+
+  if (!firstName.value || !lastName.value || !avatarUrl.value) {
+    return;
+  }
+
   const newUser = {
     first_name: firstName.value,
     last_name: lastName.value,
@@ -37,7 +49,6 @@ const handleSubmit = async () => {
   };
 
   addUser(store, newUser);
-
   await router.push("/");
 };
 </script>
@@ -88,7 +99,7 @@ const handleSubmit = async () => {
   grid-column: span 1;
   width: 100%;
   display: inline-block;
-  margin-top: 5rem;
+  margin-top: 1rem;
 }
 
 .addUser__button button {
@@ -105,6 +116,17 @@ const handleSubmit = async () => {
 
 .addUser__button button:hover {
   background-color: #3e6f4f;
+}
+
+.error {
+  border-color: rgb(255, 149, 149) !important;
+}
+
+.error-message {
+  color: rgb(255, 0, 0);
+  font-size: 0.8rem;
+  margin-top: -0.8rem;
+  margin-bottom: 0.8rem;
 }
 
 @media (min-width: 768px) {

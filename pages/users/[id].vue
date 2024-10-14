@@ -1,7 +1,7 @@
 <template>
   <div class="editUser">
-    <h1>Edit User</h1>
-    <p class="editUser__description">Update the details of the selected user.</p>
+    <h1>Edit Intern</h1>
+    <p class="editUser__description">Update the details of the selected intern.</p>
     <form class="editUser__form">
       <div class="editUser__field">
         <label for="firstName">First Name</label>
@@ -17,13 +17,14 @@
       </div>
       <div class="editUser__button">
         <button type="button" @click="handleSubmit">Save Changes</button>
+        <button type="button" @click="handleDelete" class="deleteButton">Delete Intern</button>
       </div>
     </form>
   </div>
 </template>
 
 <script setup>
-import { useUserStore, updateUser } from "@/store/store";
+import { useUserStore, updateUser, deleteUser } from "@/store/store";
 const route = useRoute();
 const router = useRouter();
 const userId = Number(route.params.id);
@@ -51,9 +52,12 @@ const handleSubmit = () => {
     avatar: avatarUrl.value,
   };
 
-  console.log("Updated User:", updatedUser);
-
   updateUser(store, userId, updatedUser);
+  router.push("/");
+};
+
+const handleDelete = () => {
+  deleteUser(store, userId);
   router.push("/");
 };
 </script>
@@ -122,6 +126,15 @@ const handleSubmit = () => {
   background-color: #569067;
   cursor: pointer;
   transition: all 0.3s ease;
+}
+
+.editUser__button button.deleteButton {
+  background-color: #dc7a77;
+  margin-top: 1rem;
+}
+
+.editUser__button button.deleteButton:hover {
+  background-color: #c9302c;
 }
 
 .editUser__button button:hover {
