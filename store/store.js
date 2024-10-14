@@ -26,3 +26,7 @@ export const updateUser = (store, userId, updatedUser) => {
     store.users[index] = { ...store.users[index], ...updatedUser };
   }
 };
+
+export const deleteUser = (store, userId) => {
+  store.users = store.users.filter((user) => user.id !== userId);
+};

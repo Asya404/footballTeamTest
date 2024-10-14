@@ -181,6 +181,12 @@ h1 {
 
 .usersList__action {
   cursor: pointer;
+  color: #919191;
+  transition: all 0.3s ease;
+}
+
+.usersList__action:hover {
+  color: #569067;
 }
 
 .pagination {
