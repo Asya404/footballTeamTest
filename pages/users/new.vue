@@ -1,6 +1,6 @@
 <template>
   <div class="addUser">
-    <h1>Add user</h1>
+    <h1>Add Intern</h1>
     <form class="addUser__form" @submit.prevent="handleSubmit">
       <div class="addUser__field">
         <label for="firstName">First Name</label>
@@ -14,7 +14,7 @@
         <label for="avatarUrl">Avatar URL</label>
         <input type="text" v-model="avatarUrl" id="avatarUrl" required />
       </div>
-      <div class="addUser__button"><button type="submit">Update Details</button></div>
+      <div class="addUser__button"><button type="submit">Add Intern</button></div>
     </form>
   </div>
 </template>

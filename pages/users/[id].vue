@@ -1,7 +1,7 @@
 <template>
   <div class="editUser">
-    <h1>Edit User</h1>
-    <p class="editUser__description">Update the details of the selected user.</p>
+    <h1>Edit Intern</h1>
+    <p class="editUser__description">Update the details of the selected intern.</p>
     <form class="editUser__form">
       <div class="editUser__field">
         <label for="firstName">First Name</label>

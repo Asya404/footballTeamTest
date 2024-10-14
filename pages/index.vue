@@ -1,13 +1,13 @@
 <template>
   <div class="usersList">
-    <h1>Users List</h1>
+    <h1>Interns List</h1>
     <ul class="usersList__list">
       <header class="usersList__header">
         <div class="usersList__search">
-          <input type="text" placeholder="Search for users..." class="usersList__input" v-model="searchInput" />
+          <input type="text" placeholder="Search for interns..." class="usersList__input" v-model="searchInput" />
           <span>🔍</span>
         </div>
-        <button class="usersList__button" @click="addUser">+ Add User</button>
+        <button class="usersList__button" @click="addUser">+ Add Intern</button>
       </header>
       <div class="usersList__titles">
         <div>Avatar</div>
